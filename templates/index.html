@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Message</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: #faf8f9;
+        font-family: Arial, sans-serif;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+        height: 100px;
+        background-color: #f3d6df;
+        border-radius: 0 0 30px 30px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        flex-shrink: 0;
+    }
+
+    .header h1 {
+        margin: 0;
+        color: #493f42;
+        font-size: 24px;
+    }
+
+    .header p {
+        margin: 6px 0 0;
+        color: #75686c;
+        font-size: 14px;
+    }
+
+    /* Chat area */
+    .chat-container {
+        flex: 1;
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+
+        padding: 30px 20px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    /* Message bubble */
+    .message-bubble {
+        align-self: flex-end;
+
+        max-width: 70%;
+
+        background-color: #c98fa1;
+        color: white;
+
+        padding: 14px 18px;
+
+        border-radius: 20px 20px 5px 20px;
+
+        font-size: 16px;
+        line-height: 1.4;
+
+        margin-bottom: 15px;
+    }
+
+    /* Message input area */
+    .message-form {
+        width: 100%;
+
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+
+        background-color: white;
+
+        border: 2px solid #e6dfe1;
+        border-radius: 25px;
+
+        padding: 8px 8px 8px 18px;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    textarea {
+        flex: 1;
+
+        height: 45px;
+
+        padding: 12px 0;
+
+        border: none;
+        outline: none;
+
+        resize: none;
+
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+
+        background: transparent;
+    }
+
+    textarea::placeholder {
+        color: #aaa;
+    }
+
+    /* Send button */
+    button {
+        width: 45px;
+        height: 45px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: #c98fa1;
+        color: white;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background-color: #b97d90;
+        transform: scale(1.05);
+    }
+
+    button:active {
+        transform: scale(0.95);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+
+        .header {
+            height: 90px;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .chat-container {
+            padding: 20px 12px;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+        }
+
+        .message-form {
+            border-radius: 22px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Send a Message</h1>
+    <p>Your message will be printed automatically.</p>
+</div>
+
+
+<div class="chat-container">
+
+    <!--
+        This is where a sent message could appear.
+        Your Flask backend can eventually return the page
+        with the submitted message here.
+    -->
+
+    <form
+        class="message-form"
+        action="/submit_form"
+        method="POST"
+    >
+
+        <textarea
+            name="message"
+            placeholder="Type a message..."
+            required
+        ></textarea>
+
+        <button type="submit" aria-label="Send">
+            ➤
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

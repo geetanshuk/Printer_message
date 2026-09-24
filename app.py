@@ -2,9 +2,9 @@ from flask import Flask, render_template, request
 import serial
 import time
 import threading
-from collections import deque
+from queue import Queue
 
-print_queue = deque()
+print_queue = Queue(maxsize=10)
 requests = {}
 app = Flask(__name__)
 stm32 = serial.Serial("COM4", 9600, timeout=2)
@@ -68,10 +68,10 @@ def submit_form():
     if not rate_limiting(ip):
         return "Cannot send more messages"
 
-    if len(print_queue) >= 10:
+    if print_queue.full():
         return "Print Queue is full"
 
-    print_queue.append(message)
+    print_queue.put(message)
 
     return "Message received!"
 
@@ -79,11 +79,13 @@ def submit_form():
 def printer_worker():
     while True:
         if print_queue:
-            message = print_queue.popleft()
+            message = print_queue.get()
 
             stm32.write(
                 (message + "\x04").encode()
             )
+
+            print_queue.task_done()
 
 def validation(message):
     if not message:

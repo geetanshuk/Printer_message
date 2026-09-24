@@ -3,10 +3,12 @@ import serial
 import time
 import threading
 from queue import Queue
+from flask_cors import CORS
 
 print_queue = Queue(maxsize=10)
 requests = {}
 app = Flask(__name__)
+CORS(app)
 stm32 = serial.Serial("COM4", 9600, timeout=2)
 
 
@@ -55,7 +57,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/submit_form", methods=["POST"])
+@app.route("/submit-form", methods=["POST"])
 def submit_form():
     message = request.form["message"]
     
@@ -136,4 +138,4 @@ def rate_limiting(ip):
 if __name__ == "__main__":
     worker = threading.Thread(target=printer_worker, daemon=True)
     worker.start()
-    app.run(debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", debug=True, use_reloader=False)

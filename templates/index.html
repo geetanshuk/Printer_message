@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 
 <html lang="en">
+    
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Message</title>
+
+
 
 <style>
     * {
@@ -14,7 +18,7 @@
 
     body {
         margin: 0;
-        height: 100vh;
+        min-height: 100vh;
         background-color: #faf8f9;
         font-family: Arial, sans-serif;
 
@@ -54,7 +58,7 @@
         max-width: 800px;
         width: 100%;
         margin: 0 auto;
-
+        box-sizing: border-box;
         padding: 30px 20px;
 
         display: flex;
@@ -101,19 +105,16 @@
 
     textarea {
         flex: 1;
-
         height: 45px;
-
+        min-height: 45px;
+        max-height: 200px;
         padding: 12px 0;
-
         border: none;
         outline: none;
-
         resize: none;
-
+        overflow-y: auto;
         font-family: Arial, sans-serif;
         font-size: 16px;
-
         background: transparent;
     }
 
@@ -176,9 +177,12 @@
             border-radius: 22px;
         }
     }
+
+
 </style>
 
 </head>
+
 
 <body>
 
@@ -198,13 +202,15 @@
 
     <form
         class="message-form"
-        action="/submit_form"
+        action="https://superintendent-colours-boring-dentists.trycloudflare.com/submit-form"
         method="POST"
     >
 
         <textarea
+            id = "message"
             name="message"
             placeholder="Type a message..."
+            maxlength = 500
             required
         ></textarea>
 
@@ -215,6 +221,14 @@
     </form>
 
 </div>
+<script>
+    const textarea = document.getElementById("message");
+
+    textarea.addEventListener("input", function () {
+        this.style.height = "45px";
+        this.style.height = this.scrollHeight + "px";
+});
+</script>
 
 </body>
 

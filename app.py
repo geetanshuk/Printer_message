@@ -80,14 +80,13 @@ def submit_form():
 
 def printer_worker():
     while True:
-        if print_queue:
-            message = print_queue.get()
+        message = print_queue.get()
 
-            stm32.write(
-                (message + "\x04").encode()
-            )
+        stm32.write(
+            (message + "\x04").encode()
+        )
 
-            print_queue.task_done()
+        print_queue.task_done()
 
 def validation(message):
     if not message:
@@ -138,4 +137,4 @@ def rate_limiting(ip):
 if __name__ == "__main__":
     worker = threading.Thread(target=printer_worker, daemon=True)
     worker.start()
-    app.run(host="0.0.0.0", debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", debug=False, use_reloader=False)
